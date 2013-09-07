@@ -1,18 +1,7 @@
-<!doctype html>
+{% extends "layout.html" %}
+{% block body %}
 <h1>Guestbook!</h1>
 
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<div style="border: 1px solid #000">
-  <h3>Messages</h3>
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-</div>
-{% endif %}
-{% endwith %}
 
 {% for name, entry in entries %}
 <p>{{ entry }}</p>
@@ -26,3 +15,4 @@
   <textarea name="entry" rows="10" cols="80"></textarea>
   <p><input type="submit" value="Submit"></p>
 </form>
+{% endblock %}
