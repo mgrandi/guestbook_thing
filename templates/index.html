@@ -1,0 +1,25 @@
+<!doctype html>
+<h1>Guestbook!</h1>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+{% for name, entry in entries %}
+<p>{{ entry }}</p>
+<p>&mdash;<em>{{ name }}</em></p>
+<hr>
+{% endfor %}
+
+<form action="/submit" method="POST">
+  <p>Submit an entry!</p>
+  <p><label for="name">Your name</label> <input type="text" name="name"></p>
+  <textarea name="entry" rows="10" cols="80"></textarea>
+  <p><input type="submit" value="Submit"></p>
+</form>
