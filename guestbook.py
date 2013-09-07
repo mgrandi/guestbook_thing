@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, request
+from flask import Flask, flash, redirect, render_template, request, session
 
 
 app = Flask(__name__)
@@ -19,6 +19,18 @@ def submit():
         return redirect('/')
     entry_names.append(request.form['name'])
     return redirect('/')
+
+@app.route('/admin')
+def admin_login():
+    return render_template('login.html')
+
+@app.route('/admin', methods=['POST'])
+def do_admin_login():
+    if request.form['password'] == 'password':
+        session['logged_in'] = True
+    else:
+        flash('wrong password!')
+    return admin_login()
 
 
 if __name__ == '__main__':
