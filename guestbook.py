@@ -32,6 +32,16 @@ def do_admin_login():
         flash('wrong password!')
     return admin_login()
 
+@app.route('/moderate', methods=['POST'])
+def moderate_posts():
+    for key in request.form:
+        if not key.startswith('delete_'):
+            continue
+        index = int(key.partition('_')[2])
+        del entries[index]
+        del entry_names[index]
+    return redirect('/')
+
 
 if __name__ == '__main__':
     import os

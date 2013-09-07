@@ -2,12 +2,23 @@
 {% block body %}
 <h1>Guestbook!</h1>
 
-
+{% with logged_in = session['logged_in'] %}
+{% if logged_in %}<form action="/moderate" method="POST">{% endif %}
 {% for name, entry in entries %}
 <p>{{ entry }}</p>
 <p>&mdash;<em>{{ name }}</em></p>
+{% if logged_in -%}
+  <p>
+    {% with name = "remove_%d" % loop.index0 -%}
+    <input type="checkbox" id="{{ name }}" name="{{ name }}" value="yes">
+    <label for="{{ name }}">Remove this entry</label>
+    {%- endwith %}
+  </p>
+{%- endif %}
 <hr>
 {% endfor %}
+{% if logged_in %}</form>{% endif %}
+{% endwith %}
 
 <form action="/submit" method="POST">
   <p>Submit an entry!</p>
