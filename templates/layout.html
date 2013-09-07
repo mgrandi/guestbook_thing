@@ -12,6 +12,8 @@
 {% endif %}
 {% endwith %}
 
+{% if session['logged_in'] -%}
 <p><em>Logged in as the admin.</em></p>
+{%- endif %}
 
 {% block body %}{% endblock %}
