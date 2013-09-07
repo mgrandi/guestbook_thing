@@ -4,9 +4,9 @@
 
 {% with logged_in = session['logged_in'] %}
 {% if logged_in %}<form action="/moderate" method="POST">{% endif %}
-{% for name, entry in entries %}
+{% for name, date, entry in entries %}
 <p>{{ entry }}</p>
-<p>&mdash;<em>{{ name }}</em></p>
+<p>&mdash;<em>{{ name }}</em> on {{ date }}</p>
 {% if logged_in -%}
   <p>
     {% with name = "remove_%d" % loop.index0 -%}

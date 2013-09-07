@@ -1,15 +1,18 @@
+import datetime
+
 from flask import Flask, flash, redirect, render_template, request, session
 
 
 app = Flask(__name__)
 entries = []
 entry_names = []
+entry_dates = []
 
 
 @app.route('/')
 def index():
     return render_template(
-        'index.html', entries=zip(entry_names, entries))
+        'index.html', entries=zip(entry_names, entry_dates, entries))
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -18,6 +21,7 @@ def submit():
         flash("you must provide a name!")
         return redirect('/')
     entry_names.append(request.form['name'])
+    entry_dates.append(datetime.datetime.now())
     return redirect('/')
 
 @app.route('/admin')
