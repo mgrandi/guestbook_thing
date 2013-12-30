@@ -17,7 +17,7 @@
 {%- endif %}
 <hr>
 {% endfor %}
-{% if logged_in %}</form>{% endif %}
+{% if logged_in %}<input type="submit" value="Delete selected entries"></form>{% endif %}
 {% endwith %}
 
 <form action="/submit" method="POST">
