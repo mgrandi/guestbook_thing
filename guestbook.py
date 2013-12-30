@@ -49,15 +49,27 @@ def do_admin_login():
 @app.route('/moderate', methods=['POST'])
 def moderate_posts():
     
-    for key in request.form:
-        if not key.startswith('remove_'):
+    justTheKeys = request.form.keys()
+
+    sortedKeys = list()
+
+    for tmpKey in justTheKeys:
+        if not tmpKey.startswith('remove_'):
             continue
-        index = int(key.partition('_')[2])
+        else:
+            sortedKeys.append(int(tmpKey.partition("_")[2]))
+
+    sortedKeys = sorted(sortedKeys, reverse=True)
+
+    print("sorted keys", sortedKeys)
+    for key in sortedKeys:
+        print(key)
+
 
         print("entries", entries)
         print("entry names", entry_names)
-        del entries[index]
-        del entry_names[index]
+        del entries[key]
+        del entry_names[key]
 
     return redirect('/')
 
